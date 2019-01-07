@@ -1,0 +1,39 @@
+<!--
+  Author: Enio Carboni (enio.carboni@gmail.com)
+  Download: https://github.com/eniocarboni/countrytocurrency
+-->
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Carboni Enio">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="../country_currency.js" ></script>
+	</head>
+	<body>
+		<h1>test countrytocurrency.js library</h1>
+		<p>Country cod: <span id="country_cod"></span></p>
+		<p>Country name: <span id="country_name"></span></p>
+		<p>Currency cod: <span id="currency_cod"></span></p>
+		<p>Currency name: <span id="currency_name"></span></p>
+		<p>Currency number format: <span id="numberformat"></span></p>
+		<p>All currency: <select id="allcurrency"></select></p>
+		<script>
+			var c=new DefaultCurrency();
+			var number = 123456.789;
+			document.getElementById("country_cod").innerHTML=c.dcc;
+			document.getElementById("country_name").innerHTML=c.dcn;
+			document.getElementById("currency_cod").innerHTML=c.cc;
+			document.getElementById("currency_name").innerHTML=c.cn;
+			document.getElementById("numberformat").innerHTML=new Intl.NumberFormat(navigator.language || 'EN-US',{ style: 'currency', currency: c.cc }).format(number);
+			var allcurrency=c.getAllCurrency();
+			var s = document.getElementById("allcurrency");
+			c_order=Object.keys(allcurrency).sort();
+			for (var i = 0; i < c_order.length; i++) {
+				var option = document.createElement("option");
+				option.text = c_order[i] + " - " + allcurrency[c_order[i]];
+				s.add(option);
+				if (c_order[i] == c.cc) {s.selectedIndex=i;}
+			}
+		</script>
+	</body>
+</html>
